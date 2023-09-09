@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.pplax.kill.mapper.PayOrderMapper">
+    <insert id="insertPayOrder">
+        <!-- 主键冲突,报错 -->
+        insert ignore into pay_order (`kill_id`, `user_phone`, `state`, `create_time`)
+        values (#{killId}, #{userPhone}, 0, #{nowTime})
+    </insert>
+    <select id="queryByIdWithkillId" resultType="PayOrder">
+        <!-- 根据id查询SuccessKilled并携带pplax_kill实体 -->
+        <!-- 如果告诉MyBatis把结果映射到SuccessKilled同时映射pplax_kill属性 -->
+        <!-- 可以自由控制SQL -->
+        select
+        so.kill_id,
+        so.user_phone,
+        so.create_time,
+        so.state,
+          s.kill_id "pplax_kill.kill_id",
+          s.name "pplax_kill.name",
+          s.inventory "pplax_kill.inventory",
+          s.start_time "pplax_kill.start_time",
+          s.end_time "pplax_kill.end_time",
+          s.create_time "pplax_kill.create_time"
+        from pay_order so
+        inner join pplax_kill s on so.kill_id = s.kill_id
+        where so.kill_id=#{killId} and so.user_phone=#{userPhone}
+    </select>
+
+
+</mapper>

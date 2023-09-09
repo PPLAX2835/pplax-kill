@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.pplax.kill.mapper.PPLAXKillMapper">
+    <!-- 目的:为DAO接口方法提供sql语句配置-->
+
+    <update id="reduceInventory">
+        <!-- 具体sql -->
+        update
+            pplax_kill
+        set
+          inventory = inventory - 1,
+          version = #{newVersion}
+        where kill_id = #{killId}
+        and version = #{oldVersion}
+        ;
+    </update>
+
+    <select id="queryById" resultType="PPLAXKill" parameterType="long">
+        select `kill_id`,`name`,`inventory`,`start_time`,`end_time`,`create_time`,`version`
+        from pplax_kill
+        where kill_id = #{killId}
+    </select>
+
+    <select id="queryAll" resultType="PPLAXKill">
+        select `kill_id`,`name`,`inventory`,`start_time`,`end_time`,`create_time`,`version`
+        from pplax_kill
+        order by create_time desc
+        limit #{offset},#{limit}
+    </select>
+
+</mapper>

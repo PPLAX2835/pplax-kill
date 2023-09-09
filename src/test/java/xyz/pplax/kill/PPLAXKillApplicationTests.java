@@ -7,6 +7,7 @@ import xyz.pplax.kill.entity.PPLAXKill;
 import xyz.pplax.kill.entity.PayOrder;
 import xyz.pplax.kill.mapper.PPLAXKillMapper;
 import xyz.pplax.kill.mapper.PayOrderMapper;
+import xyz.pplax.kill.mapper.cache.RedisMapper;
 
 import java.util.Date;
 import java.util.List;
@@ -40,4 +41,24 @@ class PPLAXKillApplicationTests {
         System.out.println(pplaxKills);
     }
 
+
+    @Autowired
+    RedisMapper redisMapper;
+    @Test
+    void RedisMapperTest() {
+        List<PPLAXKill> pplaxKills = pplaxKillMapper.queryAll(0, 5);
+
+        redisMapper.setAllGoods(pplaxKills);
+
+        List<PPLAXKill> allGoods = redisMapper.getAllGoods();
+        System.out.println(allGoods);
+
+        PPLAXKill iKill = new PPLAXKill();
+        iKill.setKillId(1004);
+        iKill.setName("商品4");
+        iKill.setInventory(100);
+        redisMapper.putPPLAXKill(iKill);
+        PPLAXKill pplaxKile = redisMapper.getPPLAXKile(1004);
+        System.out.println(pplaxKile);
+    }
 }

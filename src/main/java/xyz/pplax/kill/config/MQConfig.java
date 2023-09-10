@@ -49,7 +49,7 @@ public class MQConfig {
     public MQConfigBean mqConfigBean() {
         MQConfigBean mqConfigBean = new MQConfigBean();
 
-        if (StringUtils.hasText(addressList)) {
+        if (StringUtils.isEmpty(addressList)) {
             throw new InvalidPropertyException(MQConfigBean.class, "addressList", "rabbitmq.address-list is Empty");
         }
 
@@ -64,6 +64,7 @@ public class MQConfig {
         mqConfigBean.setAddressList(addressList);
 
         // 封装
+        mqConfigBean.setAddressList(addressList);
         mqConfigBean.setUsername(username);
         mqConfigBean.setPassword(password);
         mqConfigBean.setPublisherConfirms(publisherConfirms);

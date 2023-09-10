@@ -3,11 +3,14 @@ package xyz.pplax.kill;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import xyz.pplax.kill.dto.PPLAXKillMsgBody;
 import xyz.pplax.kill.entity.PPLAXKill;
 import xyz.pplax.kill.entity.PayOrder;
 import xyz.pplax.kill.mapper.PPLAXKillMapper;
 import xyz.pplax.kill.mapper.PayOrderMapper;
 import xyz.pplax.kill.mapper.cache.RedisMapper;
+import xyz.pplax.kill.mq.MQConsumer;
+import xyz.pplax.kill.mq.MQProducer;
 
 import java.util.Date;
 import java.util.List;
@@ -61,4 +64,50 @@ class PPLAXKillApplicationTests {
         PPLAXKill pplaxKile = redisMapper.getPPLAXKile(1004);
         System.out.println(pplaxKile);
     }
+
+
+//    @Autowired
+//    MQProducer mqProducer;
+//    @Test
+//    void MQConsumerTest() {
+//        for (int i=0;i<100;i++){
+//            Thread thread = new Thread(new Sender(mqProducer, i));
+//            thread.start();
+//        }
+//
+//        try {
+//            Thread.sleep(20000);
+//            System.out.println("mq process");
+//            List<PPLAXKill> allGoods = redisMapper.getAllGoods();
+//            System.out.println(allGoods);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//    public static class Sender implements Runnable {
+//        MQProducer mqProducer;
+//        int messageIndex;
+//
+//        public Sender(MQProducer mqProducer, int messageIndex) {
+//            this.mqProducer = mqProducer;
+//            this.messageIndex = messageIndex;
+//        }
+//
+//        @Override
+//        public void run() {
+//
+//            PPLAXKillMsgBody pplaxKillMsgBody = new PPLAXKillMsgBody();
+//            pplaxKillMsgBody.setKillId(messageIndex);
+//            pplaxKillMsgBody.setUserPhone(18830292770L + messageIndex);
+//            mqProducer.send(pplaxKillMsgBody);
+//
+//            try {
+//                Thread.sleep(200);
+//                System.out.println("mq process");
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+
 }

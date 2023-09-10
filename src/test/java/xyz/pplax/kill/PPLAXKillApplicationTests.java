@@ -3,6 +3,8 @@ package xyz.pplax.kill;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 import xyz.pplax.kill.dto.PPLAXKillMsgBody;
 import xyz.pplax.kill.entity.PPLAXKill;
 import xyz.pplax.kill.entity.PayOrder;
@@ -12,6 +14,7 @@ import xyz.pplax.kill.mapper.cache.RedisMapper;
 import xyz.pplax.kill.mq.MQConsumer;
 import xyz.pplax.kill.mq.MQProducer;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
@@ -109,5 +112,16 @@ class PPLAXKillApplicationTests {
 //            }
 //        }
 //    }
+
+    @Resource(name = "initJedisPool")
+    private JedisPool jedisPool;
+    @Test
+    public void InitTaskTest() {
+//        Jedis jedis = jedisPool.getResource();
+//        //清空Redis缓存
+//        jedis.flushDB();
+        List<PPLAXKill> allGoods = redisMapper.getAllGoods();
+        System.out.println(allGoods);
+    }
 
 }

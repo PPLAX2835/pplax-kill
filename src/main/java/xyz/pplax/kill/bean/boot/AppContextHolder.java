@@ -1,4 +1,4 @@
-package xyz.pplax.kill.boot;
+package xyz.pplax.kill.bean.boot;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

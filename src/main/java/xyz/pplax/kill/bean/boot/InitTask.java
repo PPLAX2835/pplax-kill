@@ -1,4 +1,4 @@
-package xyz.pplax.kill.boot;
+package xyz.pplax.kill.bean.boot;
 
 
 import io.protostuff.LinkedBuffer;

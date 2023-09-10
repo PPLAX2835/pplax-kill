@@ -26,6 +26,27 @@ public class Exposer implements Serializable {
     //结束时间
     private long end;
 
+    private Exposer(){}
+
+    public Exposer(boolean exposed, String md5, long killId) {
+        this.exposed = exposed;
+        this.md5 = md5;
+        this.killId = killId;
+    }
+
+    public Exposer(boolean exposed, long killId, long now, long start, long end) {
+        this.exposed = exposed;
+        this.killId = killId;
+        this.now = now;
+        this.start = start;
+        this.end = end;
+    }
+
+    public Exposer(boolean exposed, long killId) {
+        this.exposed = exposed;
+        this.killId = killId;
+    }
+
     public boolean isExposed() {
         return exposed;
     }

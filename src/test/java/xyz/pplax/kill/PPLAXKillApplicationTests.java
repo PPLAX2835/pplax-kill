@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import xyz.pplax.kill.dto.Exposer;
 import xyz.pplax.kill.dto.PPLAXKillMsgBody;
 import xyz.pplax.kill.entity.PPLAXKill;
 import xyz.pplax.kill.entity.PayOrder;
@@ -14,6 +15,7 @@ import xyz.pplax.kill.mapper.cache.RedisMapper;
 import xyz.pplax.kill.mq.MQConsumer;
 import xyz.pplax.kill.mq.MQProducer;
 import xyz.pplax.kill.service.AccessLimitService;
+import xyz.pplax.kill.service.PPLAXKillService;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -142,5 +144,24 @@ class PPLAXKillApplicationTests {
             }
 
         }
+    }
+
+
+    @Autowired
+    PPLAXKillService pplaxKillService;
+    @Test
+    public void PPLAXKillServiceTest() {
+        /*** 限流ok ***/
+//        for (int i = 0; i < 1000; i++) {
+//            Exposer exposer = pplaxKillService.exportKillUrl(1000);
+//            pplaxKillService.executeKill(1000, 18730292780L + i, exposer.getMd5());
+//        }
+//        List<PPLAXKill> allGoods = redisMapper.getAllGoods();
+//        System.out.println(allGoods);
+
+        Exposer exposer = pplaxKillService.exportKillUrl(1000);
+        pplaxKillService.executeKill(1000, 18730292780L, exposer.getMd5());
+        List<PPLAXKill> allGoods = redisMapper.getAllGoods();
+        System.out.println(allGoods);
     }
 }

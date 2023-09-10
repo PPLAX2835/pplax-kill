@@ -2,6 +2,7 @@ package xyz.pplax.kill.dto;
 
 
 import xyz.pplax.kill.entity.PayOrder;
+import xyz.pplax.kill.enums.PPLAXKillStateEnum;
 
 /**
  * 封装秒杀执行后结果
@@ -18,6 +19,19 @@ public class PPLAXKillExecution {
 
     //秒杀成功对象
     private PayOrder payOrder;
+
+    public PPLAXKillExecution(long killId, PPLAXKillStateEnum pplaxKillStateEnum, PayOrder payOrder) {
+        this.killId = killId;
+        this.state = pplaxKillStateEnum.getState();
+        this.stateInfo = pplaxKillStateEnum.getStateInfo();
+        this.payOrder = payOrder;
+    }
+
+    public PPLAXKillExecution(long killId, PPLAXKillStateEnum pplaxKillStateEnum) {
+        this.killId = killId;
+        this.state = pplaxKillStateEnum.getState();
+        this.stateInfo = pplaxKillStateEnum.getStateInfo();
+    }
 
     public long getKillId() {
         return killId;

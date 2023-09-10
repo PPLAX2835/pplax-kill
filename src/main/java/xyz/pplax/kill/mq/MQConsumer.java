@@ -14,6 +14,7 @@ import xyz.pplax.kill.dto.PPLAXKillMsgBody;
 import xyz.pplax.kill.enums.AckAction;
 import xyz.pplax.kill.enums.PPLAXKillStateEnum;
 import xyz.pplax.kill.exception.PPLAXKillException;
+import xyz.pplax.kill.service.PPLAXKillService;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -23,8 +24,8 @@ public class MQConsumer {
 
     private static final Logger logger = LoggerFactory.getLogger(MQConsumer.class);
 
-//    @Resource
-//    private PPLAXKillService killService;
+    @Resource
+    private PPLAXKillService pplaxKillService;
 
     @Resource(name = "mqConnectionReceive")
     private Connection mqConnectionReceive;
@@ -78,25 +79,21 @@ public class MQConsumer {
 
             AckAction ackAction = AckAction.ACCEPT;
             try {
-                // 延时2秒，模拟秒杀的耗时操作, 上线的时候需要注释掉
-                try {
-                    Thread.sleep(2000);
-                    System.out.println("mq process");
-                } catch (InterruptedException e) {
-                    logger.error(e.getMessage(), e);
-                }
+//                // 延时2秒，模拟秒杀的耗时操作, 上线的时候需要注释掉
+//                try {
+//                    Thread.sleep(2000);
+//                    System.out.println("mq process");
+//                } catch (InterruptedException e) {
+//                    logger.error(e.getMessage(), e);
+//                }
 
 
 
                 // 业务处理
-
-
-
-
-
-
-
-
+                // redis中添加内容
+                pplaxKillService.handleInRedis(msgBody.getKillId(), msgBody.getUserPhone());
+                // 更新数据库
+                pplaxKillService.updateInventory(msgBody.getKillId(), msgBody.getUserPhone());
 
             } catch (PPLAXKillException pplaxKillException) {
                 if (pplaxKillException.getPPLAXKillStateEnum() == PPLAXKillStateEnum.SOLD_OUT

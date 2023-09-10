@@ -67,7 +67,7 @@ public class PPLAXKillExecution {
 
     @Override
     public String toString() {
-        return "SeckillExecution{" +
+        return "PPLAXKillExecution{" +
                 "killId=" + killId +
                 ", state=" + state +
                 ", stateInfo='" + stateInfo + '\'' +

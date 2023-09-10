@@ -169,7 +169,7 @@ public class PPLAXKillServiceImpl implements PPLAXKillService {
             pplaxKillMsgBody.setUserPhone(userPhone);
             mqProducer.send(pplaxKillMsgBody);
 
-            // 秒杀成功,返回给客户端
+            // 秒杀结束,返回结果给客户端
             PayOrder payOrder = new PayOrder();
             payOrder.setUserPhone(userPhone);
             payOrder.setKillId(killId);
@@ -226,6 +226,9 @@ public class PPLAXKillServiceImpl implements PPLAXKillService {
                     } else {
                         //秒杀成功 commit
                         PayOrder payOrder = payOrderMapper.queryByIdWithkillId(killId, userPhone);
+                        // 更新redis
+                        PPLAXKill pplaxKill = pplaxKillMapper.queryById(killId);
+                        redisMapper.putPPLAXKill(pplaxKill);
                         logger.info("kill SUCCESS->>>. killId={},userPhone={}", killId, userPhone);
                         return new PPLAXKillExecution(killId, PPLAXKillStateEnum.SUCCESS, payOrder);
                         //return后，事务结束，关闭作用在表kill上的行锁

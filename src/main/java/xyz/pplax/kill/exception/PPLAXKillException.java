@@ -10,8 +10,8 @@ public class PPLAXKillException extends RuntimeException {
 
     private PPLAXKillStateEnum pplaxKillStateEnum;
 
-    public PPLAXKillException(PPLAXKillStateEnum seckillStateEnum) {
-        this.pplaxKillStateEnum = seckillStateEnum;
+    public PPLAXKillException(PPLAXKillStateEnum pplaxKillStateEnum) {
+        this.pplaxKillStateEnum = pplaxKillStateEnum;
     }
 
     public PPLAXKillException(String message) {
@@ -22,11 +22,11 @@ public class PPLAXKillException extends RuntimeException {
         super(message, cause);
     }
 
-    public PPLAXKillStateEnum getSeckillStateEnum() {
+    public PPLAXKillStateEnum getPPLAXKillStateEnum() {
         return pplaxKillStateEnum;
     }
 
-    public void setSeckillStateEnum(PPLAXKillStateEnum seckillStateEnum) {
-        this.pplaxKillStateEnum = seckillStateEnum;
+    public void setPPPLAXKillStateEnum(PPLAXKillStateEnum pplaxKillStateEnum) {
+        this.pplaxKillStateEnum = pplaxKillStateEnum;
     }
 }

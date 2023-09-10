@@ -108,7 +108,7 @@ public class RedisMapper {
     public void setAllGoods(List<PPLAXKill> list) {
         Jedis jedis = jedisPool.getResource();
         if (list == null || list.size() < 1) {
-            logger.info("--FatalError!!! seckill_list_data is empty");
+            logger.info("--FatalError!!! kill_list_data is empty");
             return ;
         }
 

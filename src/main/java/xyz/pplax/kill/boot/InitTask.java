@@ -47,7 +47,7 @@ public class InitTask implements CommandLineRunner {
 
         List<PPLAXKill> pplaxKillList = pplaxKillMapper.queryAll(0, 10);
         if (pplaxKillList == null || pplaxKillList.size()< 1) {
-            logger.info("--FatalError!!! seckill_list_data is empty");
+            logger.info("--FatalError!!! kill_list_data is empty");
             return;
         }
 
@@ -57,10 +57,10 @@ public class InitTask implements CommandLineRunner {
             String inventoryKey = RedisKeyPrefix.PPLAXKILL_INVENTORY + pplaxKill.getKillId();
             jedis.set(inventoryKey, String.valueOf(pplaxKill.getInventory()));
 
-            String seckillGoodsKey = RedisKeyPrefix.PPLAXKILL_GOODS + pplaxKill.getKillId();
+            String killGoodsKey = RedisKeyPrefix.PPLAXKILL_GOODS + pplaxKill.getKillId();
             byte[] goodsBytes = ProtostuffIOUtil.toByteArray(pplaxKill, MyRuntimeSchema.getInstance().getGoodsRuntimeSchema(),
                     LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE));
-            jedis.set(seckillGoodsKey.getBytes(), goodsBytes);
+            jedis.set(killGoodsKey.getBytes(), goodsBytes);
         }
         jedis.close();
         logger.info("Redis缓存数据初始化完毕！");

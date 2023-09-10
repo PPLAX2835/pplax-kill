@@ -69,7 +69,7 @@ CREATE TABLE `pplax_kill` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1004 DEFAULT CHARSET=utf8mb4 COMMENT='秒杀库存表';
 
 -- ----------------------------
--- Records of seckill
+-- Records of pplaxkill
 -- ----------------------------
 INSERT INTO `pplax_kill` VALUES ('1000', '商品0', '119990', '2019-01-17 14:29:10', '2019-12-20 00:00:00', '2019-01-13 21:28:31', '11');
 INSERT INTO `pplax_kill` VALUES ('1001', '商品1', '188', '2019-01-17 14:29:12', '2019-12-20 00:00:00', '2019-01-13 21:28:31', '12');

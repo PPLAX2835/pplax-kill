@@ -24,7 +24,7 @@ public class MQConsumer {
     private static final Logger logger = LoggerFactory.getLogger(MQConsumer.class);
 
 //    @Resource
-//    private PPLAXKillService seckillService;
+//    private PPLAXKillService killService;
 
     @Resource(name = "mqConnectionReceive")
     private Connection mqConnectionReceive;
@@ -99,8 +99,8 @@ public class MQConsumer {
 
 
             } catch (PPLAXKillException pplaxKillException) {
-                if (pplaxKillException.getSeckillStateEnum() == PPLAXKillStateEnum.SOLD_OUT
-                        || pplaxKillException.getSeckillStateEnum() == PPLAXKillStateEnum.REPEAT_KILL) {
+                if (pplaxKillException.getPPLAXKillStateEnum() == PPLAXKillStateEnum.SOLD_OUT
+                        || pplaxKillException.getPPLAXKillStateEnum() == PPLAXKillStateEnum.REPEAT_KILL) {
                     // 已售罄，或者此人之前已经秒杀过的
                     ackAction = AckAction.THROW;
                 } else {

@@ -217,7 +217,7 @@ public class PPLAXKillServiceImpl implements PPLAXKillService {
 
                 if (validTime) {
                     long oldVersion = currentPPLAXKill.getVersion();
-                    // update操作开始，表seckill的seckill_id等于seckillId的行被启用了行锁,   其他的事务无法update这一行， 可以update其他行
+                    // update操作开始，表kill的kill_id等于killId的行被启用了行锁,   其他的事务无法update这一行， 可以update其他行
                     int updateCount = pplaxKillMapper.reduceInventory(killId, oldVersion, oldVersion + 1);
                     if (updateCount <= 0) {
                         //没有更新到记录，秒杀结束,rollback
@@ -228,11 +228,11 @@ public class PPLAXKillServiceImpl implements PPLAXKillService {
                         PayOrder payOrder = payOrderMapper.queryByIdWithkillId(killId, userPhone);
                         logger.info("kill SUCCESS->>>. killId={},userPhone={}", killId, userPhone);
                         return new PPLAXKillExecution(killId, PPLAXKillStateEnum.SUCCESS, payOrder);
-                        //return后，事务结束，关闭作用在表seckill上的行锁
+                        //return后，事务结束，关闭作用在表kill上的行锁
                         // update结束，行锁被取消  。reduceInventory()被执行前后数据行被锁定, 其他的事务无法写这一行。
                     }
                 } else {
-                    logger.info("kill_END. seckillId={},userPhone={}", killId, userPhone);
+                    logger.info("kill_END. killId={},userPhone={}", killId, userPhone);
                     throw new PPLAXKillException(PPLAXKillStateEnum.END);
                 }
             }

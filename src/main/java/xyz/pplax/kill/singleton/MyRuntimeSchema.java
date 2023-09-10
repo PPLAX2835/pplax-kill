@@ -14,8 +14,8 @@ public class MyRuntimeSchema {
     }
 
     private MyRuntimeSchema() {
-        RuntimeSchema<PPLAXKill> seckillSchemaVar = RuntimeSchema.createFrom(PPLAXKill.class);
-        setGoodsRuntimeSchema(seckillSchemaVar);
+        RuntimeSchema<PPLAXKill> runtimeSchema = RuntimeSchema.createFrom(PPLAXKill.class);
+        setGoodsRuntimeSchema(runtimeSchema);
     }
 
     public RuntimeSchema<PPLAXKill> getGoodsRuntimeSchema() {

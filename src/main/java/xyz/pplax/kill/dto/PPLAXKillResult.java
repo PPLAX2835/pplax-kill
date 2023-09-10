@@ -15,6 +15,17 @@ public class PPLAXKillResult<T> implements Serializable {
 
     private String error;
 
+
+    public PPLAXKillResult(boolean success, T data) {
+        this.success = success;
+        this.data = data;
+    }
+
+    public PPLAXKillResult(boolean success, String error) {
+        this.success = success;
+        this.error = error;
+    }
+
     public boolean isSuccess() {
         return success;
     }

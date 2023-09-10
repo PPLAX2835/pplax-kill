@@ -13,6 +13,7 @@ import xyz.pplax.kill.mapper.PayOrderMapper;
 import xyz.pplax.kill.mapper.cache.RedisMapper;
 import xyz.pplax.kill.mq.MQConsumer;
 import xyz.pplax.kill.mq.MQProducer;
+import xyz.pplax.kill.service.AccessLimitService;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -124,4 +125,22 @@ class PPLAXKillApplicationTests {
         System.out.println(allGoods);
     }
 
+    @Autowired
+    AccessLimitService accessLimitService;
+    @Test
+    public void AccessLimitServiceTest() {
+        for (int i = 0; i < 1000; i++) {
+
+            try {
+                Thread.sleep(2);
+                System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                System.out.println("kill" + String.valueOf(i));
+                System.out.println(accessLimitService.tryAcquirePPLAXKill());
+                System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
 }
